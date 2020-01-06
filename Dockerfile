@@ -2,7 +2,7 @@
 #
 # docker build -t sequenceiq/hadoop .
 
-FROM idasound/centos7-jdk8
+FROM centos:latest
 MAINTAINER SequenceIQ
 
 USER root
