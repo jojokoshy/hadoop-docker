@@ -14,6 +14,10 @@ RUN yum clean all; \
 # update libselinux. see https://github.com/sequenceiq/hadoop-docker/issues/14
 RUN yum update -y libselinux
 
+RUN yum history sync
+RUN yum install -y yum-plugin-ovl ; yum clean all
+RUN yum -y install wget  ; yum clean all
+
 # passwordless ssh
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
@@ -26,7 +30,8 @@ RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 #RUN rpm -i jdk-7u71-linux-x64.rpm
 #RUN rm jdk-7u71-linux-x64.rpm
 #http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
-RUN curl -LO 'http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie'
+RUN wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
+
 RUN rpm -i jdk-8u131-linux-x64.rpm
 RUN rm jdk-8u131-linux-x64.rpm
 
